@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <!-- link font poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- tailwindcss -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+ <!-- jquery -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <!-- datetimepicker -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  
+
+
+  <script>
+  $(function() {
+    $('input[name="daterange"]').daterangepicker({
+      opens: 'left'
+    }, function(start, end, label) {
+      console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+  });
+  </script>
+
+    <title>FE2_Product_Management </title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: {
+                        '425': '425px',
+                        '500': '500px',
+                        '0': '0px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+    <div class="app relative">
+        
+        <!-- start header -->
+        <header class="bg-[#262626] fixed top-0 right-0 left-0  z-50">
+            <div class="max-w-[1742px] mx-auto px-[10px] md:px-[20px] flex flex-wrap justify-between items-center">
+                <div class="btn_menu fill-white cursor-pointer block lg:hidden">
+                    <svg class="stroke-white" mlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-menu">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </div>
+                <div class="logo uppercase font-bold text-[34px] py-1 text-white">
+                    .pdms
+                </div>
+                <ul
+                    class="translate-x-[-100%] transition-[0.5s] fixed lg:relative lg:translate-x-0 lg:flex menu font-medium text-white text-[16px] leading-6 items-center mx-[-30px]">
+                    <li class="flex justify-end lg:hidden mb-2">
+                        <div
+                            class="w-8 h-8 btn_exit_menu bg-red-600 hover:bg-[#dc2625c2] flex justify-center items-center cursor-pointer">
+                            <svg class="stroke-white transition-[0.8s] ease-linear" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="link_menu py-2 sub_menu_wrap px-[30px] relative">
+                        <svg class="lg:hidden block absolute right-1 stroke-white top-[6px] icon_arow transition-[0.8s] "
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                        <a class=" no-underline flex items-center" href="#">
+                            <svg class="fill-white mr-[7px] " width="24" height="24" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19 5V19H5V5H19ZM19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z" />
+                                <path d="M14 17H7V15H14V17ZM17 13H7V11H17V13ZM17 9H7V7H17V9Z" />
+                            </svg>
+                            <span>PDM</span>
+                        </a>
+                        <ul
+                            class="0:hidden 0:opacity-100 0:overflow-hidden 0:z-10  lg:block lg:h-0  0:mt-2 lg:mt-0 lg:absolute 0:top-full 0:w-full lg:translate-y-6 0:transition 0:duration-150 md:min-w-[300px] lg:shadow-md 0:bg-transparent lg:bg-white 0:pl-5 ">
+
+                            <li class="0:text-white  lg:text-[#262626] hover:text-[#5477ad] text-[14px] py-2"><a
+                                    href="FE2_Product_Management .html">FE2_Product_Management </a></li>
+                            <li class="0:text-white lg:text-[#262626] hover:text-[#5477ad] text-[14px] py-2"><a
+                                    href="Fe4_FE4_Account_Management.html">Fe4_FE4_Account_Management.html</a></li>
+                            <li class="0:text-white  lg:text-[#262626] hover:text-[#5477ad] text-[14px] py-2"><a
+                                    href="FE5_Department_Management.html">FE5_Department_Management.html</a></li>
+                            <li class="0:text-white  lg:text-[#262626] hover:text-[#5477ad] text-[14px] py-2"><a
+                                    href="#">Item menu</a></li>
+                            <li class="0:text-white  lg:text-[#262626] hover:text-[#5477ad] text-[14px] py-2"><a
+                                    href="#">Item menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub_menu_wrap  link_menu py-2 relative px-[30px]">
+                        <svg class="lg:hidden block absolute right-1 stroke-white top-[6px] icon_arow transition-[0.8s] "
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                        <a class=" no-underline flex items-center" href="#">
+                            <svg class="mr-[7px] fill-white" width="24" height="24" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_17_38)">
+                                    <path
+                                        d="M14 10H2V12H14V10ZM14 6H2V8H14V6ZM2 16H10V14H2V16ZM21.5 11.5L23 13L16.01 20L11.5 15.5L13 14L16.01 17L21.5 11.5Z" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_17_38">
+                                        <rect width="24" height="24" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <span>PDA</span>
+                        </a>
+                        <ul
+                            class="0:hidden 0:opacity-100 0:overflow-hidden 0:z-10  lg:block lg:h-0  0:mt-2 lg:mt-0 lg:absolute 0:top-full 0:w-full lg:translate-y-6 0:transition 0:duration-150 md:min-w-[300px] lg:shadow-md 0:bg-transparent lg:bg-white 0:pl-5 ">
+
+                            <li class="0:text-white  lg:text-[#262626] hover:text-[#5477ad] text-[14px] py-2"><a
+                                    href="FE3_PDA.html">FE3_PDA.html</a></li>
+                            <li class="0:text-white lg:text-[#262626] hover:text-[#5477ad] text-[14px] py-2"><a
+                                    href="#">Item menu</a></li>
+                            <li class="0:text-white  lg:text-[#262626] hover:text-[#5477ad] text-[14px] py-2"><a
+                                    href="#">Item menu</a></li>
+                            <li class="0:text-white  lg:text-[#262626] hover:text-[#5477ad] text-[14px] py-2"><a
+                                    href="#">Item menu</a></li>
+                            <li class="0:text-white  lg:text-[#262626] hover:text-[#5477ad] text-[14px] py-2"><a
+                                    href="#">Item menu</a></li>
+                        </ul>
+
+                    </li>
+                    <li class=" link_menu py-2  px-[30px]">
+                        <a class=" no-underline flex items-center " href="#">
+                            <svg class="mr-[7px] fill-white" width="23" height="23" viewBox="0 0 23 23"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_18_43)">
+                                    <path
+                                        d="M19.25 5.83333H17.1608C17.2662 5.53625 17.3333 5.21042 17.3333 4.875C17.3333 3.28417 16.0492 2 14.4583 2C13.4521 2 12.58 2.5175 12.0625 3.29375L11.5833 3.93583L11.1042 3.28417C10.5867 2.5175 9.71458 2 8.70833 2C7.1175 2 5.83333 3.28417 5.83333 4.875C5.83333 5.21042 5.90042 5.53625 6.00583 5.83333H3.91667C2.85292 5.83333 2.00958 6.68625 2.00958 7.75L2 18.2917C2 19.3554 2.85292 20.2083 3.91667 20.2083H19.25C20.3137 20.2083 21.1667 19.3554 21.1667 18.2917V7.75C21.1667 6.68625 20.3137 5.83333 19.25 5.83333ZM14.4583 3.91667C14.9854 3.91667 15.4167 4.34792 15.4167 4.875C15.4167 5.40208 14.9854 5.83333 14.4583 5.83333C13.9312 5.83333 13.5 5.40208 13.5 4.875C13.5 4.34792 13.9312 3.91667 14.4583 3.91667ZM8.70833 3.91667C9.23542 3.91667 9.66667 4.34792 9.66667 4.875C9.66667 5.40208 9.23542 5.83333 8.70833 5.83333C8.18125 5.83333 7.75 5.40208 7.75 4.875C7.75 4.34792 8.18125 3.91667 8.70833 3.91667ZM19.25 18.2917H3.91667V16.375H19.25V18.2917ZM19.25 13.5H3.91667V7.75H8.785L6.79167 10.4621L8.34417 11.5833L10.625 8.47833L11.5833 7.175L12.5417 8.47833L14.8225 11.5833L16.375 10.4621L14.3817 7.75H19.25V13.5Z" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_18_43">
+                                        <rect width="23" height="23" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <span>Product</span>
+                        </a>
+
+
+                    </li>
+                    <li class="link_menu py-2  px-[30px]">
+                        <a class=" no-underline flex items-center " href="#">
+                            <svg class="mr-[7px] fill-white" width="23" height="23" viewBox="0 0 23 23" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_18_47)">
+                                    <path
+                                        d="M20.125 1.91663H2.87504C1.82087 1.91663 0.958374 2.77913 0.958374 3.83329V15.3333C0.958374 16.3875 1.82087 17.25 2.87504 17.25H9.58337L7.66671 20.125V21.0833H15.3334V20.125L13.4167 17.25H20.125C21.1792 17.25 22.0417 16.3875 22.0417 15.3333V3.83329C22.0417 2.77913 21.1792 1.91663 20.125 1.91663ZM20.125 13.4166H2.87504V3.83329H20.125V13.4166Z" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_18_47">
+                                        <rect width="23" height="23" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <span>Department</span>
+                        </a>
+                    </li>
+                    <li class="link_menu py-2  px-[30px]">
+                        <a class=" no-underline flex items-center " href="#">
+                            <svg class="mr-[7px] fill-white" width="16" height="22" viewBox="0 0 16 22" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M16 7.93C15.96 3.54 12.4 0 8 0C3.6 0 0.04 3.54 0 7.93V13.93C0 18.35 3.58 21.93 8 21.93C12.42 21.93 16 18.35 16 13.93V7.93ZM14 7.93H9V2.09C11.81 2.56 13.96 4.99 14 7.93ZM7 2.09V7.93H2C2.04 4.99 4.19 2.56 7 2.09ZM14 13.93C14 17.24 11.31 19.93 8 19.93C4.69 19.93 2 17.24 2 13.93V9.93H14V13.93Z" />
+                            </svg>
+                            <span>Menu 5</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="flex py-2 flex-wrap items-center">
+                    <div class="messenger cursor-pointer mr-7 fill-white">
+                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_18_56)">
+                                <path
+                                    d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM4 8L12 13L20 8V18H4V8ZM12 11L4 6H20L12 11Z" />
+                                <path
+                                    d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM4 8L12 13L20 8V18H4V8ZM12 11L4 6H20L12 11Z" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_18_56">
+                                    <rect width="24" height="24" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+
+                    </div>
+                    <div class=" flex items-center capitalize text-white font-medium text-[16px] ">
+                        <div class="w-8 h-8 mr-3 rounded-full">
+                            <img class="w-full h-full object-cover" src="../static/images/avatar.png" alt="">
+                        </div>
+                        <span>logout</span>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- endheader -->
+        <!-- content -->
+        <div class="mt-[60px]"> 
+
+            <div class="max-w-[1600px] mx-auto px-3 md:px-5">
+                <p class="font-semibold 0:pt-3 text-[19px] sm:text-[20px] leading-9  ">Product Design Management</p>
+                <!-- filter -->
+                <div class="block lg:flex lg:mx-[-15px] ">
+                    <div class="lg:w-[70%] w-full px-[15px]">
+                        <div class=" flex flex-wrap lg:justify-end justify-start ">
+                            <div class="relative 0:mt-4 lg:mt-0 mr-2 ">
+                                <select id="selectCategory" class="form-select css_select"
+                                    aria-label="Default select example">
+                                    <option selected>Category filter</option>
+                                    <option value="1">Category 1</option>
+                                    <option value="2">Category 2</option>
+                                    <option value="3">Category 3</option>
+                                </select>
+                            </div>
+                            <div id="selectSubCategory" class="relative 0:mt-4 lg:mt-0 mr-2">
+                                <select class="form-select css_select" aria-label="Default select example">
+                                    <option selected>Sub Category</option>
+                                    <option value="1">SubCategory 1</option>
+                                    <option value="2">SubCategory 2</option>
+                                    <option value="3">SubCategory 3</option>
+                                </select>
+                            </div>
+                            <div id="selectStutusFillter" class="relative 0:mt-4 lg:mt-0 mr-2">
+                                <select class="form-select css_select" aria-label="Default select example">
+                                    <option selected>Status</option>
+                                    <option value="1">Approved</option>
+                                    <option value="1">Approved</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-wrap w-fit 0:mt-4 lg:mt-0 ">
+                                <input name="daterange"
+                                    class="h-[30px] outline-none px-1 border-[1px] border-[#5477AD] rounded-[5px] mr-[7px] min-w-[200px]"
+                                    type="text">
+                                <button
+                                    class="font-semibold text-[12px] leading-[18px] bg-[#17B15C] py-[5.5px] px-[14px] text-white rounded-[5px] ">Date
+                                    filter</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-[30%] w-full px-[15px]">
+                        <div class="flex flex-wrap lg:justify-end justify-start w-full 0:mt-5 lg:mt-0">
+                            <input
+                                class="input_seach h-[30px] outline-none px-1 max-w-[400px] border-[1px] border-[#5477AD] rounded-[5px] mr-[7px] "
+                                type="text">
+                            <button
+                                class="font-semibold text-[12px] leading-[18px] bg-[#17B15C] py-[5.5px] px-[14px] text-white rounded-[5px] ">Search</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end search user -->
+                <!-- //table -->
+                <div class="block lg:flex lg:mx-[-15px] mt-[20px]">
+                    <div class="lg:w-[70%] w-full px-[15px] mb-8 lg:mb-0 relative ">
+                         <!-- search user -->
+                         <div id="searchUser" 
+                         class=" search_user w-0  0:opacity-0 0:translate-y-[-20px] absolute right-[-21%] z-[2] top-[10px] 0:bg-[#262626] max-w-[250px]  w-full 0:p-2 rounded-[10px] max-h-[200px] overflow-scroll ">
+                         <div class=" 0:bg-white rounded-[5px] 0:py-2 w-full flex justify-between 0:px-2">
+                             <input id="inputSearchUser" class="outline-none border-0 " type="text"
+                                 placeholder="Search">
+                             <button class="outline-none border-0 cursor-pointer 0:px-1 " id="searchInput">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                     viewBox="0 0 512 512">
+                                      <path
+                                         d="M504.1 471l-134-134C399.1 301.5 415.1 256.8 415.1 208c0-114.9-93.13-208-208-208S-.0002 93.13-.0002 208S93.12 416 207.1 416c48.79 0 93.55-16.91 129-45.04l134 134C475.7 509.7 481.9 512 488 512s12.28-2.344 16.97-7.031C514.3 495.6 514.3 480.4 504.1 471zM48 208c0-88.22 71.78-160 160-160s160 71.78 160 160s-71.78 160-160 160S48 296.2 48 208z" />
+                                 </svg>
+                             </button>
+                         </div>
+                         <div class="font-normal leading-[21px] text-white shadow-sm">
+                             <div class="flex py-1">
+                                 <input id="checkboxEmailUser" type="checkbox">
+                                 <label for="checkboxEmailUser"
+                                     class="description_tb ml-2">Jenahi10Jenahi10Jenahi10Jenahi10Jenahi10@gmail.com</label>
+                             </div>
+                             <div class="flex py-1">
+                                 <input id="checkboxEmailUser2" type="checkbox">
+                                 <label for="checkboxEmailUser2"
+                                     class="description_tb ml-2">Jenahi10@gmail.com</label>
+                             </div>
+                             <div class="flex py-1">
+                                 <input id="checkboxEmailUser3" type="checkbox">
+                                 <label for="checkboxEmailUser3"
+                                     class="description_tb ml-2">Jenahi10@gmail.com</label>
+                             </div>
+                             <div class="flex py-1">
+                                 <input id="checkboxEmailUser4" type="checkbox">
+                                 <label for="checkboxEmailUser4"
+                                     class="description_tb ml-2">Jenahi10@gmail.com</label>
+                             </div>
+                             <div class="flex py-1">
+                                 <input id="checkboxEmailUser5" type="checkbox">
+                                 <label for="checkboxEmailUser5"
+                                     class="description_tb ml-2">Jenahi10@gmail.com</label>
+                             </div>
+                             <div class="flex py-1">
+                                 <input id="checkboxEmailUser6" type="checkbox">
+                                 <label for="checkboxEmailUser6"
+                                     class="description_tb ml-2">Jenahi10@gmail.com</label>
+                             </div>
+                             <div class="flex py-1">
+                                 <input id="checkboxEmailUser8" type="checkbox">
+                                 <label for="checkboxEmailUser8"
+                                     class="description_tb ml-2">Jenahi10@gmail.com</label>
+                             </div>
+                         </div>
+                            </div>
+                        <div class="overflow-auto max-h-[592px]  rounded-[10px] relative">
+
+                           
+                            <table class="w-full min-w-[800px] ">
+                                <thead class="bg-[#F5B66B] rounded-t-[10px]">
+                                    <tr class="font-semibold text-[13px] capitalize leading-[14px] text-[#2F6CBF] ">
+                                        <th class="rounded-tl-[10px]"></th>
+                                        <th class="text-center">#</th>
+                                        <th class="thCategory  h-full cursor-pointer">
+                                            <div class="flex justify-center">
+                                                Category
+                                                <svg class="icon ml-3 transition-[0.6s]" width="14" height="14"
+                                                    viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_144_1161)">
+                                                        <path
+                                                            d="M2.91665 5.25004L3.73915 6.07254L6.41665 3.40087L6.41665 12.8334H7.58331L7.58331 3.40087L10.2608 6.07837L11.0833 5.25004L6.99998 1.16671L2.91665 5.25004Z"
+                                                            fill="#2F6CBF" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_144_1161">
+                                                            <rect width="14" height="14" fill="white"
+                                                                transform="translate(14 14) rotate(-180)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                        </th>
+                                        <th class="thCategory h-full  cursor-pointer">
+                                            <div class="flex justify-center">
+                                                Sub Category
+                                                <svg class="icon ml-3 transition-[0.6s]" width="14" height="14"
+                                                    viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_144_1161)">
+                                                        <path
+                                                            d="M2.91665 5.25004L3.73915 6.07254L6.41665 3.40087L6.41665 12.8334H7.58331L7.58331 3.40087L10.2608 6.07837L11.0833 5.25004L6.99998 1.16671L2.91665 5.25004Z"
+                                                            fill="#2F6CBF" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_144_1161">
+                                                            <rect width="14" height="14" fill="white"
+                                                                transform="translate(14 14) rotate(-180)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                        </th>
+                                        <th class="thCategory h-full  cursor-pointer">
+                                            <div class="flex justify-center">
+                                                name
+                                                <svg class="icon ml-3 transition-[0.6s]" width="14" height="14"
+                                                    viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_144_1161)">
+                                                        <path
+                                                            d="M2.91665 5.25004L3.73915 6.07254L6.41665 3.40087L6.41665 12.8334H7.58331L7.58331 3.40087L10.2608 6.07837L11.0833 5.25004L6.99998 1.16671L2.91665 5.25004Z"
+                                                            fill="#2F6CBF" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_144_1161">
+                                                            <rect width="14" height="14" fill="white"
+                                                                transform="translate(14 14) rotate(-180)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                        </th>
+                                        <th class="thCategory cursor-pointer">
+                                            <div class="flex justify-center">
+                                                Date
+                                                <svg class="icon ml-3 transition-[0.6s]" width="14" height="14"
+                                                    viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_144_1161)">
+                                                        <path
+                                                            d="M2.91665 5.25004L3.73915 6.07254L6.41665 3.40087L6.41665 12.8334H7.58331L7.58331 3.40087L10.2608 6.07837L11.0833 5.25004L6.99998 1.16671L2.91665 5.25004Z"
+                                                            fill="#2F6CBF" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_144_1161">
+                                                            <rect width="14" height="14" fill="white"
+                                                                transform="translate(14 14) rotate(-180)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                        </th>
+                                        <th>Review</th>
+                                        <th class="thCategory cursor-pointer">
+                                            <div class="justify-center flex">
+                                                status
+                                                <svg class="icon ml-3 transition-[0.6s]" width="14" height="14"
+                                                    viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_144_1161)">
+                                                        <path
+                                                            d="M2.91665 5.25004L3.73915 6.07254L6.41665 3.40087L6.41665 12.8334H7.58331L7.58331 3.40087L10.2608 6.07837L11.0833 5.25004L6.99998 1.16671L2.91665 5.25004Z"
+                                                            fill="#2F6CBF" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_144_1161">
+                                                            <rect width="14" height="14" fill="white"
+                                                                transform="translate(14 14) rotate(-180)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                        </th>
+                                        <th class="rounded-tr-[10px]"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-[#000] text-white fill-white">
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                Not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                Not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                Not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                Not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                Not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                Not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                Not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#17B15C]  capitalize font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#17B15C]  capitalize font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 capitalize bg-[#B9A16B]  font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                Not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                Not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                Not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#17B15C]  capitalize font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#17B15C]  capitalize font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#17B15C]  capitalize font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B]   capitalize font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B]   capitalize font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                    <tr class="cursor-pointer line_table">
+                                        <td class="text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z" />
+                                            </svg>
+                                        </td>
+                                        <td class="text-center my-2">01</td>
+                                        <td class="text-center">Ca002</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">MT0001</td>
+                                        <td class="text-center">30-08-2022 8:00</td>
+                                        <td class="text-center">
+                                            <span>1</span>/ <span>5</span>
+                                        </td>
+                                        <td>
+                                            <p
+                                                class="text-center py-1 bg-[#B9A16B]   capitalize font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                                not approved
+                                            </p>
+
+                                        </td>
+                                        <td class="flex ">
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M0 512L32 352 292.7 91.3l128 128L160 480 0 512zM443.3 196.7l-128-128L384 0 512 128l-68.7 68.7z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 448 512">
+                                                <path
+                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                            </svg>
+                                            <svg class="px-[8px] w-1/3 add_menber" xmlns="http://www.w3.org/2000/svg" width="15"
+                                                height="15" viewBox="0 0 640 512">
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                                            </svg>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="font-semibold mt-[15px] text-[#817D7D] flex flex-wrap items-center leading-[21px]">
+                            <p class="mr-[32px]">Total: <span>120 rows</span> </p>
+                            <p class="mr-[32px]">Approved: <span>70</span> </p>
+                            <p> Not approved : <span>50</span> </p>
+                        </div>
+                    </div>
+
+                    <!-- right content -->
+                    <div class="lg:w-[30%] w-full px-[14px]">
+                        <div class="w-full rounded-[10px] bg-[#262626] pb-[10px]">
+                            <p
+                                class="rounded-t-[10px]  bg-[#F5B66B] py-[13px] text-center font-semibold text-[14px] capitalize leading-[14px] text-[#2F6CBF] ">
+                                Product information
+                            </p>
+                            <p class="font-normal leading-[21px] capitalize 0:mt-3 ml-[6px] text-white">
+                                Categories</p>
+                            <div class="mx-[6px] mt-2 flex justify-between">
+                                <div class="relative lg:mt-0 mr-2 ">
+                                    <select id="selectCategory" class="form-select css_select min-w-[146px]"
+                                        aria-label="Default select example">
+                                        <option selected="">Category</option>
+                                        <option value="1">Category 1</option>
+                                        <option value="2">Category 2</option>
+                                        <option value="3">Category 3</option>
+                                    </select>
+                                </div>
+                                <button
+                                    class="font-semibold text-[12px] leading-[18px] bg-[#17B15C] py-[5px] px-[17px] capitalize text-white rounded-[5px] ">add</button>
+                            </div>
+                            <p class="font-normal leading-[21px] capitalize 0:mt-3 ml-[6px] text-white">
+                                Sub Category</p>
+                            <div class="mx-[6px] mt-2 flex justify-between">
+                                <div class="relative lg:mt-0 mr-2 ">
+                                    <select id="selectCategory" class="form-select css_select "
+                                        aria-label="Default select example">
+                                        <option selected="">Sub Category</option>
+                                        <option value="1">Category 1</option>
+                                        <option value="2">Category 2</option>
+                                        <option value="3">Category 3</option>
+                                    </select>
+                                </div>
+                                <button
+                                    class="font-semibold text-[12px] leading-[18px] bg-[#17B15C] py-[5px] px-[17px] capitalize text-white rounded-[5px] ">add</button>
+                            </div>
+                            <div class="flex-col mx-[6px] mt-2">
+                                <label for="nameInputProduct"
+                                    class="font-normal leading-[21px] capitalize 0:mt-3 mb-[10px] text-white">name</label>
+                                <input
+                                    class="w-full font-normal text-[14px] leading-[21px] outline-none rounded-[5px] px-[5px] py-1 "
+                                    id="nameInputProduct" type="text">
+                            </div>
+                            <div class="flex-col mx-[6px] 0:mt-5 ">
+                                <div class="flex flex-wrap justify-between 0:mb-2">
+                                    <div class="flex flex-wrap items-center">
+                                        <label
+                                            class="font-normal mr-[8px] leading-[21px] text-[13px] capitalize 0:mt-3 mb-[10px] text-white">media
+                                            version</label>
+                                        <div class="relative lg:mt-0 ">
+                                            <select id="selectCategory" class="form-select css_select "
+                                                aria-label="Default select example">
+                                                <option selected="">version</option>
+                                                <option value="1">version 1</option>
+                                                <option value="2">version 2</option>
+                                                <option value="3">version 3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label
+                                    class="font-normal leading-[21px] capitalize flex items-center text-white"><span >30-08-2022 8:00</span></label>
+                                </div>
+                                <div class="flex flex-wrap justify-between 0:mb-4">
+                                    <button
+                                        class="font-semibold text-[12px] leading-[18px] bg-[#17B15C] py-[5.5px] px-[17px] capitalize text-white rounded-[5px] ">Add
+                                        version</button>
+                                    <button
+                                        class="font-semibold text-[12px] leading-[18px] bg-[#B8362D] py-[5.5px] px-[17px] capitalize text-white rounded-[5px] ">Lock
+                                        version</button>
+                                </div>
+                                
+                                <div class="bg-[#fff]   rounded-[5px]">
+                                    <div class="pt-[6px] pb-[11px] flex flex-wrap ">
+                                        <div class="w-1/4 px-[3px] flex flex-col items-center">
+                                            <p class="font-medium leading-[15px] my-[5px]">Package</p>
+                                            <div class="flex  justify-center">
+                                                <input type="checkbox">
+                                                <p class="description_tb font-normal ml-[4px] text-[11px] leading-3">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                            </div>
+                                            <svg class="cursor-pointer mb-[5px] " xmlns="http://www.w3.org/2000/svg"
+                                                widht="14px" height="14px" viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M245.4 379.1C248.4 382.7 252.2 384 256 384s7.594-1.344 10.62-4.047l144-128c6.594-5.859 7.219-15.98 1.344-22.58c-5.875-6.625-16.06-7.234-22.59-1.328L272 332.4V16C272 7.156 264.8 0 256 0S240 7.156 240 16v316.4L122.6 228C116.1 222.1 105.9 222.8 100 229.4C94.16 235.1 94.78 246.1 101.4 251.1L245.4 379.1zM448 320h-48c-8.836 0-16 7.162-16 16c0 8.836 7.164 16 16 16H448c17.67 0 32 14.33 32 32v64c0 17.67-14.33 32-32 32H64c-17.67 0-32-14.33-32-32v-64c0-17.67 14.33-32 32-32h48C120.8 352 128 344.8 128 336C128 327.2 120.8 320 112 320H64c-35.35 0-64 28.65-64 64v64c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64v-64C512 348.7 483.3 320 448 320zM440 416c0-13.25-10.75-24-24-24s-24 10.75-24 24s10.75 24 24 24S440 429.3 440 416z" />
+                                            </svg>
+                                            <input id="btnAddPicture" type="submit" value="Add picture"
+                                                class="outline-none mt-2 text-[#2C6ECB] mx-auto border-b-[1px] border-[#2C6ECB] font-medium text-[10px] leading-3 " >
+                                        </div>
+                                        <div class="w-1/4 px-[3px] flex flex-col items-center">
+                                            <p class="font-medium leading-[15px] my-[5px]">Label/PTP</p>
+                                            <div class="flex  justify-center">
+                                                <input type="checkbox">
+                                                <p class="description_tb font-normal ml-[4px] text-[11px] leading-3">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                            </div>
+                                            <svg class="cursor-pointer mb-[5px] " xmlns="http://www.w3.org/2000/svg"
+                                                widht="14px" height="14px" viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M245.4 379.1C248.4 382.7 252.2 384 256 384s7.594-1.344 10.62-4.047l144-128c6.594-5.859 7.219-15.98 1.344-22.58c-5.875-6.625-16.06-7.234-22.59-1.328L272 332.4V16C272 7.156 264.8 0 256 0S240 7.156 240 16v316.4L122.6 228C116.1 222.1 105.9 222.8 100 229.4C94.16 235.1 94.78 246.1 101.4 251.1L245.4 379.1zM448 320h-48c-8.836 0-16 7.162-16 16c0 8.836 7.164 16 16 16H448c17.67 0 32 14.33 32 32v64c0 17.67-14.33 32-32 32H64c-17.67 0-32-14.33-32-32v-64c0-17.67 14.33-32 32-32h48C120.8 352 128 344.8 128 336C128 327.2 120.8 320 112 320H64c-35.35 0-64 28.65-64 64v64c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64v-64C512 348.7 483.3 320 448 320zM440 416c0-13.25-10.75-24-24-24s-24 10.75-24 24s10.75 24 24 24S440 429.3 440 416z" />
+                                            </svg>
+
+                                            <input id="btnAddPicture2" type="submit" value="Add picture"
+                                                class="outline-none mt-2 text-[#2C6ECB] mx-auto border-b-[1px] border-[#2C6ECB] font-medium text-[10px] leading-3 " >
+                                        </div>
+                                        <div class="w-1/4 px-[3px] flex flex-col items-center">
+                                            <p class="font-medium leading-[15px] my-[5px]">Insert</p>
+                                            <div class="flex justify-center">
+                                                <input type="checkbox">
+                                                <p class="description_tb font-normal ml-[4px] text-[11px] leading-3">
+                                                    file 1.psd</p>
+                                            </div>
+                                            <svg class="cursor-pointer mb-[5px] " xmlns="http://www.w3.org/2000/svg"
+                                                widht="14px" height="14px" viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M245.4 379.1C248.4 382.7 252.2 384 256 384s7.594-1.344 10.62-4.047l144-128c6.594-5.859 7.219-15.98 1.344-22.58c-5.875-6.625-16.06-7.234-22.59-1.328L272 332.4V16C272 7.156 264.8 0 256 0S240 7.156 240 16v316.4L122.6 228C116.1 222.1 105.9 222.8 100 229.4C94.16 235.1 94.78 246.1 101.4 251.1L245.4 379.1zM448 320h-48c-8.836 0-16 7.162-16 16c0 8.836 7.164 16 16 16H448c17.67 0 32 14.33 32 32v64c0 17.67-14.33 32-32 32H64c-17.67 0-32-14.33-32-32v-64c0-17.67 14.33-32 32-32h48C120.8 352 128 344.8 128 336C128 327.2 120.8 320 112 320H64c-35.35 0-64 28.65-64 64v64c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64v-64C512 348.7 483.3 320 448 320zM440 416c0-13.25-10.75-24-24-24s-24 10.75-24 24s10.75 24 24 24S440 429.3 440 416z" />
+                                            </svg>
+
+                                            <input id="btnAddPicture3" type="submit" value="Add picture"
+                                                class="outline-none mt-2 text-[#2C6ECB] mx-auto border-b-[1px] border-[#2C6ECB] font-medium text-[10px] leading-3 " >
+                                        </div>
+                                        <div class="w-1/4 px-[3px] flex flex-col items-center">
+                                            <p class="font-medium leading-[15px] my-[5px]">Outbox</p>
+                                            <div class="flex  justify-center">
+                                                <input type="checkbox">
+                                                <p class="description_tb font-normal ml-[4px] text-[11px] leading-3">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                            </div>
+                                            <svg class="cursor-pointer mb-[5px] " xmlns="http://www.w3.org/2000/svg"
+                                                widht="14px" height="14px" viewBox="0 0 512 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M245.4 379.1C248.4 382.7 252.2 384 256 384s7.594-1.344 10.62-4.047l144-128c6.594-5.859 7.219-15.98 1.344-22.58c-5.875-6.625-16.06-7.234-22.59-1.328L272 332.4V16C272 7.156 264.8 0 256 0S240 7.156 240 16v316.4L122.6 228C116.1 222.1 105.9 222.8 100 229.4C94.16 235.1 94.78 246.1 101.4 251.1L245.4 379.1zM448 320h-48c-8.836 0-16 7.162-16 16c0 8.836 7.164 16 16 16H448c17.67 0 32 14.33 32 32v64c0 17.67-14.33 32-32 32H64c-17.67 0-32-14.33-32-32v-64c0-17.67 14.33-32 32-32h48C120.8 352 128 344.8 128 336C128 327.2 120.8 320 112 320H64c-35.35 0-64 28.65-64 64v64c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64v-64C512 348.7 483.3 320 448 320zM440 416c0-13.25-10.75-24-24-24s-24 10.75-24 24s10.75 24 24 24S440 429.3 440 416z" />
+                                            </svg>
+                                            <input id="btnAddPicture4" type="submit" value="Add picture"
+                                            class="outline-none mt-2 text-[#2C6ECB] mx-auto border-b-[1px] border-[#2C6ECB] font-medium text-[10px] leading-3 " >
+                                        </div>
+
+                                    </div>
+                                    <div class="flex justify-between flex-wrap 0:my-2 mx-[6px]">
+                                        <button
+                                            class="font-semibold 0:mb-2 flex  text-[12px] leading-[18px] bg-[#17B15C] py-[5px] px-[17px] capitalize text-white rounded-[5px] ">Download all
+                                            <svg class="cursor-pointer mb-[5px] ml-2 fill-white " xmlns="http://www.w3.org/2000/svg"
+                                            widht="14px" height="14px" viewBox="0 0 512 512">
+                                            <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                            <path
+                                                d="M245.4 379.1C248.4 382.7 252.2 384 256 384s7.594-1.344 10.62-4.047l144-128c6.594-5.859 7.219-15.98 1.344-22.58c-5.875-6.625-16.06-7.234-22.59-1.328L272 332.4V16C272 7.156 264.8 0 256 0S240 7.156 240 16v316.4L122.6 228C116.1 222.1 105.9 222.8 100 229.4C94.16 235.1 94.78 246.1 101.4 251.1L245.4 379.1zM448 320h-48c-8.836 0-16 7.162-16 16c0 8.836 7.164 16 16 16H448c17.67 0 32 14.33 32 32v64c0 17.67-14.33 32-32 32H64c-17.67 0-32-14.33-32-32v-64c0-17.67 14.33-32 32-32h48C120.8 352 128 344.8 128 336C128 327.2 120.8 320 112 320H64c-35.35 0-64 28.65-64 64v64c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64v-64C512 348.7 483.3 320 448 320zM440 416c0-13.25-10.75-24-24-24s-24 10.75-24 24s10.75 24 24 24S440 429.3 440 416z" />
+                                        </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between flex-wrap mt-7 mx-[6px]">
+                                <button
+                                    class="font-semibold text-[12px] leading-[18px] bg-[#AFAFAF] py-[5px] px-[17px] capitalize text-white rounded-[5px] ">new</button>
+                                <button
+                                    class="font-semibold text-[12px] leading-[18px] bg-[#17B15C] py-[5px] px-[17px] capitalize text-white rounded-[5px] ">save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- table-review -->
+                <div class=" 0:mt-2 0:mb-2">
+                    <div class="flex flex-wrap justify-between items-center">
+                        <p class="0:mb-4 font-semibold 0:pt-5 text-[20px] sm:text-[18px] leading-9  ">Review</p>
+                        <div>
+                                <button
+                                    class="font-semibold text-[12px] leading-[18px] bg-[#DA7F14] py-[5.5px] px-[17px] 0:mr-3 min-w-[121px] capitalize text-white rounded-[5px] ">Report
+                                    printer</button>
+                                <button
+                                    class="font-semibold text-[12px] leading-[18px] bg-[#303030] py-[5.5px] px-[17px] min-w-[121px] capitalize text-white rounded-[5px] ">Report
+                                    designer</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-auto max-h-[644px]  rounded-[10px]">
+                        <table class="w-full min-w-[800px] ">
+                            <thead class="bg-[#F5B66B] rounded-t-[10px]">
+                                <tr class="font-semibold text-[14px] capitalize leading-[14px] text-[#2F6CBF] ">
+                                    <th class="rounded-tl-[10px]"></th>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center"></th>
+                                    <th class="thCategory  h-full cursor-pointer">
+                                        <div class="flex justify-center">
+                                            Email
+                                            <svg class="icon ml-3 transition-[0.6s]" width="14" height="14"
+                                                viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_144_1161)">
+                                                    <path
+                                                        d="M2.91665 5.25004L3.73915 6.07254L6.41665 3.40087L6.41665 12.8334H7.58331L7.58331 3.40087L10.2608 6.07837L11.0833 5.25004L6.99998 1.16671L2.91665 5.25004Z"
+                                                        fill="#2F6CBF"></path>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_144_1161">
+                                                        <rect width="14" height="14" fill="white"
+                                                            transform="translate(14 14) rotate(-180)"></rect>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </th>
+                                    <th class="text-center">Comment</th>
+                                    <th class="thCategory cursor-pointer">
+                                        <div class="flex justify-center">
+                                            Date
+                                            <svg class="icon ml-3 transition-[0.6s]" width="14" height="14"
+                                                viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_144_1161)">
+                                                    <path
+                                                        d="M2.91665 5.25004L3.73915 6.07254L6.41665 3.40087L6.41665 12.8334H7.58331L7.58331 3.40087L10.2608 6.07837L11.0833 5.25004L6.99998 1.16671L2.91665 5.25004Z"
+                                                        fill="#2F6CBF"></path>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_144_1161">
+                                                        <rect width="14" height="14" fill="white"
+                                                            transform="translate(14 14) rotate(-180)"></rect>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </th>
+                                    <th class="thCategory rounded-tr-[10px] cursor-pointer">
+                                        <div class="justify-center flex">
+                                            status
+                                            <svg class="icon ml-3 transition-[0.6s]" width="14" height="14"
+                                                viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_144_1161)">
+                                                    <path
+                                                        d="M2.91665 5.25004L3.73915 6.07254L6.41665 3.40087L6.41665 12.8334H7.58331L7.58331 3.40087L10.2608 6.07837L11.0833 5.25004L6.99998 1.16671L2.91665 5.25004Z"
+                                                        fill="#2F6CBF"></path>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_144_1161">
+                                                        <rect width="14" height="14" fill="white"
+                                                            transform="translate(14 14) rotate(-180)"></rect>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-[#000] text-white fill-white">
+                                <tr class="cursor-pointer line_table_review">
+                                    <td class="text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                            viewBox="0 0 512 512">
+                                            <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                            <path
+                                                d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z">
+                                            </path>
+                                        </svg>
+                                    </td>
+                                    <td class="text-center my-2">01</td>
+                                    <td class="text-center">
+                                        <div class="flex justify-center btn_disabled">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                                                viewBox="0 0 640 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM472 200H616c13.3 0 24 10.7 24 24s-10.7 24-24 24H472c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
+                                            </svg>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">Jena1010@gmail.com</td>
+                                    <td class="text-center w-1/2">
+                                        <div class="overflow-y-scroll h-[60px] flex items-center justify-center ">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+                                            aperiam dolorem optio pariatur necessitatibus cumque ex distinctio ratione,
+                                            iusto facilis, sapiente eos maxime, similique debitis nihil sunt ut nulla
+                                            perferendis!
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores in minima
+                                            unde blanditiis veniam porro, esse atque explicabo, nobis labore consectetur
+                                            molestias possimus consequatur est corporis dolorem distinctio impedit quae.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, asperiores
+                                            dolores aut quaerat laudantium accusantium cum commodi voluptas libero
+                                            recusandae. Sequi quibusdam eos vero hic ratione, natus aspernatur numquam
+                                            delectus.
+                                        </div>
+                                    </td>
+                                    <td class="text-center">30-08-2022 8:00</td>
+                                    <td>
+                                        <p
+                                            class="btn_status w-fit text-center 0:mx-auto 0:px-3 py-1 bg-[#17B15C] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                            Approved
+                                        </p>
+
+                                    </td>
+                                </tr>
+                                <tr class="cursor-pointer line_table_review">
+                                    <td class="text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                            viewBox="0 0 512 512">
+                                            <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                            <path
+                                                d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z">
+                                            </path>
+                                        </svg>
+                                    </td>
+                                    <td class="text-center my-2">01</td>
+                                    <td class="text-center btn_disabled">
+                                        <div class="flex justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                                                viewBox="0 0 640 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM472 200H616c13.3 0 24 10.7 24 24s-10.7 24-24 24H472c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
+                                            </svg>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">Jena1010@gmail.com</td>
+                                    <td class="text-center w-1/2">
+                                        <div class="overflow-y-scroll h-[60px] flex items-center justify-center ">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+                                            aperiam dolorem 
+                                        </div>
+                                    </td>
+                                    <td class="text-center">30-08-2022 8:00</td>
+                                    <td>
+                                        <p
+                                            class="btn_status text-center w-fit 0:mx-auto 0:px-3  py-1 bg-[#B8362D] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                            Deny
+                                        </p>
+
+                                    </td>
+                                </tr>
+                                <tr class="cursor-pointer line_table_review ">
+                                    <td class="text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                            viewBox="0 0 512 512">
+                                            <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                            <path
+                                                d="M423.1 79.3c-8.625 0-16.8 1.953-24.1 5.453C398.2 55.38 373.8 32 343.1 32c-9.658 0-18.77 2.469-26.71 6.781C309.1 16.3 288.1 0 264.1 0C239.1 0 218.1 16.55 210.9 39.17C202.9 34.74 193.8 32 184 32C153.1 32 128 57.13 128 88v219.9l-30.24-39c-10.27-13.43-26.38-21.52-43.31-21.52C24.89 247.4 0 270.4 0 301.8c0 12.14 3.856 24.46 11.72 34.79l86.36 113.5C125.7 488.9 170.6 512 218.2 512h101.8C408.2 512 480 440.1 480 351.8v-216.4C480 104.5 454.9 79.3 423.1 79.3zM447.1 351.8C447.1 422.5 390.6 480 319.1 480H218.2c-37.26 0-72.42-18.12-94.36-48.89L37.19 317.2c-3.536-4.652-5.278-10.15-5.278-15.5c0-13.31 10.56-22.41 22.26-22.41c7.047 0 13.82 3.304 18.13 8.953l34.94 45.97c6.248 8.222 15.89 12.87 25.56 12.87c4.032 0 27.2-2.604 27.2-26.13c0-.3269-.0056-.6556-.0168-.9861V88c0-13.23 10.77-24 23.1-24s23.1 10.77 23.1 24L208.1 240c0 8.844 7.049 16 15.89 16c8.844 0 16.11-7.156 16.11-16L239.1 87.85c0-.1055 0 .1055 0 0L239.1 56c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24l.0736 184c0 8.844 7.103 16 15.95 16c8.846 0 16.05-7.156 16.05-16l-.0692-152c0-13.23 10.77-24 24-24c13.24 0 24 10.77 24 24v151.6c0 8.844 7.156 16 16 16c8.844 0 16-7.156 16-16V135.4c0-13.27 10.77-24.06 24-24.06s24 10.8 24 24.06V351.8z">
+                                            </path>
+                                        </svg>
+                                    </td>
+                                    <td class="text-center my-2">01</td>
+                                    <td class="text-center btn_disabled">
+                                        <div class="flex justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                                                viewBox="0 0 640 512">
+                                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                                <path
+                                                    d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM472 200H616c13.3 0 24 10.7 24 24s-10.7 24-24 24H472c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
+                                            </svg>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">Jena1010@gmail.com</td>
+                                    <td class="text-center w-1/2">
+                                        <div class="overflow-y-scroll h-[60px] flex items-center justify-center ">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+                                            aperiam dolorem optio pariatur necessitatibus cumque ex distinctio ratione,
+                                            iusto facilis, sapiente eos maxime, similique debitis nihil sunt ut nulla
+                                            perferendis!
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores in minima
+                                            unde blanditiis veniam porro, esse atque explicabo, nobis labore consectetur
+                                            molestias possimus consequatur est corporis dolorem distinctio impedit quae.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, asperiores
+                                            dolores aut quaerat laudantium accusantium cum commodi voluptas libero
+                                            recusandae. Sequi quibusdam eos vero hic ratione, natus aspernatur numquam
+                                            delectus.
+                                        </div>
+                                    </td>
+                                    <td class="text-center">30-08-2022 8:00</td>
+                                    <td>
+                                        <p
+                                            class="btn_status text-center w-fit  0:mx-auto 0:px-3  py-1 bg-[#17B15C] font-medium text-[9px] leading-[14px] rounded-[50px]">
+                                            Approved
+                                        </p>
+
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+        
+    </div>
+    
+    <!-- datetimepicker -->
+
+    <!-- validate form -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="../static/js/validate_form.js"></script>
+    <script src="../static/js/main.js"></script>
+</body>
+
+</html>
